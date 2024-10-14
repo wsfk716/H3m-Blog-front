@@ -1,6 +1,7 @@
 import axios from "axios";
 import { ElMessage, ElLoading } from "element-plus";
-
+import { useUserStore } from "../store/useUserStore"; // 引入 Pinia 的 user store
+import router from "../router"; // 引入路由实例
 let loading;
 // 添加请求拦截器
 axios.interceptors.request.use(
@@ -36,12 +37,11 @@ axios.interceptors.response.use(
     // 超出 2xx 范围的状态码都会触发该函数。
     // 对响应错误做点什么
     loading && loading.close();
+    console.log(error.response);
     if (error.response.status === 401) {
       ElMessage.error("登录状态失效，请重新登录");
-      // 如果是 401 错误，就清除 token
-      localStorage.removeItem("token");
-      // 跳转到登录页
-      window.location.href = "#/login";
+      // 使用 Vue Router 进行跳转到登录页
+      router.push({ name: "Login" });
     }
     return Promise.reject(error);
   }

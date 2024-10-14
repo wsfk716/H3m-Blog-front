@@ -136,6 +136,12 @@ const { changeUser } = useUserStore();
 const router = useRouter();
 
 onMounted(() => {
+  // 清除 token，user 信息
+  localStorage.removeItem("token");
+  localStorage.removeItem("user");
+  // 清除 Pinia 中的 user 信息
+  changeUser(null);
+
   // 如果localStorage中有用户名和密码，则自动填充到登录表单中
   const savedUserName = localStorage.getItem("userName");
   const savedPassword = localStorage.getItem("password");
