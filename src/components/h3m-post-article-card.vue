@@ -1,12 +1,12 @@
 <template>
   <div class="post-article-card">
     <!-- 缩略图 -->
-    <div class="img">
+    <router-link to="/" class="img">
       <img src="../assets/image/login-background.jpg" alt="" />
-    </div>
+    </router-link>
     <!-- 文章信息 -->
     <div class="info">
-      <div class="title">标题</div>
+      <router-link to="/" class="title">标题</router-link>
       <!-- 其他元数据 -->
       <div class="meta-data-wrap">
         <div class="date">
@@ -44,13 +44,22 @@
   background: white;
   border-radius: 8px;
   box-shadow: var(--card-box-shadow);
+
   .img {
     width: 40%;
     height: 100%;
     overflow: hidden;
-    transition: all 0.4s ease;
-    &:hover img {
-      transform: scale(1.1); /* 悬停时略微放大 */
+    border-top-left-radius: 8px;
+    border-bottom-left-radius: 8px;
+    img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      transition: transform 0.4s ease;
+
+      &:hover {
+        transform: scale(1.1); /* 悬停时略微放大 */
+      }
     }
   }
   .info {
@@ -61,10 +70,9 @@
       font-size: 24px;
       font-weight: bold;
       color: var(--text-color-dark);
-
       transition: color 0.3s ease;
       &:hover {
-        color: var(--primary-color);
+        color: var(--theme-color);
       }
     }
     .meta-data-wrap {

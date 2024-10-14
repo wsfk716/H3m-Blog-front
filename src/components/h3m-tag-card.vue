@@ -8,7 +8,24 @@
       </div>
       <div class="info">标签</div>
     </div>
-    <div class="main"></div>
+    <div class="main">
+      <router-link to="/" class="tag-item"> Vue </router-link>
+      <router-link to="/" class="tag-item"> Vue </router-link>
+      <router-link to="/" class="tag-item"> Vue </router-link>
+      <router-link to="/" class="tag-item"> Vue </router-link>
+      <router-link to="/" class="tag-item"> Vue </router-link>
+      <router-link to="/" class="tag-item"> Vue </router-link>
+      <router-link to="/" class="tag-item"> Vue </router-link>
+      <router-link to="/" class="tag-item"> Vue </router-link>
+      <router-link to="/" class="tag-item"> Vue </router-link>
+      <router-link to="/" class="tag-item"> Vue </router-link>
+      <router-link to="/" class="tag-item"> Vue </router-link>
+      <router-link to="/" class="tag-item"> Vue </router-link>
+      <router-link to="/" class="tag-item"> Vue </router-link>
+      <router-link to="/" class="tag-item"> Vue </router-link>
+      <router-link to="/" class="tag-item"> Vue </router-link>
+      <router-link to="/" class="tag-item"> Vue </router-link>
+    </div>
   </div>
 </template>
 <script setup></script>
@@ -25,6 +42,7 @@
   .header {
     display: flex;
     align-items: center;
+    margin-bottom: 10px;
     .avatar {
       display: flex;
       align-items: center;
@@ -38,6 +56,21 @@
     .info {
       font-size: 18px;
       color: var(--text-color);
+    }
+  }
+  .main {
+    text-align: left;
+    .tag-item {
+      text-decoration: none;
+      display: inline-block;
+      transition: all 0.4s;
+      padding: 0 4px;
+      overflow-wrap: break-word;
+      line-height: 2;
+      color: var(--text-color);
+      &:hover {
+        color: var(--theme-color);
+      }
     }
   }
 }

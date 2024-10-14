@@ -8,7 +8,20 @@
       </div>
       <div class="info">热门文章</div>
     </div>
-    <div class="main"></div>
+    <div class="main">
+      <router-link to="/" class="img">
+        <img src="../assets/image/article-thumbnail.jpg" alt="" />
+      </router-link>
+      <div class="other-meta">
+        <!-- 标题 -->
+        <router-link to="/" class="title">标题</router-link>
+        <!-- 其他信息 -->
+        <div class="desc">
+          <div class="date">2024-12-12</div>
+          <div class="readNumber">222次围观</div>
+        </div>
+      </div>
+    </div>
   </div>
 </template>
 <script setup></script>
@@ -38,6 +51,43 @@
     .info {
       font-size: 18px;
       color: var(--text-color);
+    }
+  }
+  .main {
+    display: flex;
+    margin-top: 20px;
+    .img {
+      width: 58px;
+      height: 58px;
+      img {
+        width: 100%;
+        height: 100%;
+        border-radius: 8px;
+        transition: transform 0.4s ease;
+        &:hover {
+          transform: scale(1.1); /* 悬停时略微放大 */
+        }
+      }
+    }
+    .other-meta {
+      margin-left: 10px;
+      text-align: left;
+      .title {
+        font-size: 18px;
+        color: var(--text-color);
+        margin-bottom: 10px;
+        &:hover {
+          color: var(--theme-color);
+        }
+      }
+      .desc {
+        display: flex;
+        justify-content: space-between;
+        font-size: 12px;
+        .date {
+          margin-right: 10px;
+        }
+      }
     }
   }
 }
