@@ -23,18 +23,26 @@
     <!-- 联系方式 -->
     <div class="concat">
       <el-button type="primary" class="followMe" @click="handleFollowMe">
-        <i class="iconfont icon-github"></i>
+        <svg class="icon" aria-hidden="true">
+          <use xlink:href="#icon-github"></use>
+        </svg>
         Follow Me</el-button
       >
       <div class="other-concat">
         <a :href="concatCsdn()" target="_blank">
-          <i class="iconfont icon-csdn"></i>
+          <svg class="icon" aria-hidden="true">
+            <use xlink:href="#icon-csdn"></use>
+          </svg>
         </a>
         <a :href="concatGithub()" target="_blank">
-          <i class="iconfont icon-github"></i>
+          <svg class="icon" aria-hidden="true">
+            <use xlink:href="#icon-github"></use>
+          </svg>
         </a>
         <a :href="''" @click.prevent="showQQ">
-          <i class="iconfont icon-QQ"></i>
+          <svg class="icon" aria-hidden="true">
+            <use xlink:href="#icon-QQ"></use>
+          </svg>
         </a>
         <!-- <a
           :href="'tencent://message/?uin=' + user.currentUserInfo.qq"
@@ -43,7 +51,9 @@
           <i class="iconfont icon-QQ"></i>
         </a> -->
         <a :href="'mailto:' + concatEmail()" target="_blank">
-          <i class="iconfont icon-youxiang"></i>
+          <svg class="icon" aria-hidden="true">
+            <use xlink:href="#icon-youxiang"></use>
+          </svg>
         </a>
       </div>
     </div>
@@ -171,7 +181,7 @@ const TagCount = async () => {
   background-color: #fff;
   padding: 20px;
   border-radius: 5px;
-  box-shadow: 0 0 10px rgba(0, 0, 0, 0.3);
+  box-shadow: var(--card-box-shadow);
   height: 375px;
   .description {
     text-align: center;
@@ -206,7 +216,7 @@ const TagCount = async () => {
 
     .followMe {
       width: 100%;
-      .iconfont {
+      .icon {
         font-size: 18px;
         margin: 0 10px;
         color: #fff;
@@ -233,7 +243,7 @@ const TagCount = async () => {
         animation: float 1s infinite;
       }
 
-      .iconfont {
+      .icon {
         font-size: 22px;
       }
     }

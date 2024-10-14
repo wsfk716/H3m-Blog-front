@@ -6,6 +6,55 @@
   "description": "",
   "glyphs": [
     {
+      "icon_id": "1167178",
+      "name": "日历",
+      "font_class": "rili",
+      "unicode": "e640",
+      "unicode_decimal": 58944
+    },
+    {
+      "icon_id": "2076219",
+      "name": " 阅读小",
+      "font_class": "yueduxiao",
+      "unicode": "e87e",
+      "unicode_decimal": 59518
+    },
+    {
+      "icon_id": "3401731",
+      "name": "热门",
+      "font_class": "remen",
+      "unicode": "e6a6",
+      "unicode_decimal": 59046
+    },
+    {
+      "icon_id": "10936631",
+      "name": "nav_我的归档",
+      "font_class": "nav_wodeguidang",
+      "unicode": "e61b",
+      "unicode_decimal": 58907
+    },
+    {
+      "icon_id": "13437791",
+      "name": "对象分类",
+      "font_class": "duixiangfenlei",
+      "unicode": "e65c",
+      "unicode_decimal": 58972
+    },
+    {
+      "icon_id": "25508145",
+      "name": "标签",
+      "font_class": "biaoqian",
+      "unicode": "fd9b",
+      "unicode_decimal": 64923
+    },
+    {
+      "icon_id": "26876066",
+      "name": "文件归档",
+      "font_class": "wenjianguidang",
+      "unicode": "ea47",
+      "unicode_decimal": 59975
+    },
+    {
       "icon_id": "77156",
       "name": "微信",
       "font_class": "weixin",
@@ -50,7 +99,7 @@
     {
       "icon_id": "7542722",
       "name": "24gl-tags4",
-      "font_class": "24gl-tags4",
+      "font_class": "tags",
       "unicode": "e87d",
       "unicode_decimal": 59517
     },

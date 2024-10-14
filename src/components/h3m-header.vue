@@ -6,33 +6,50 @@
     <div class="right">
       <ul>
         <li>
-          <router-link to="/"
-            ><i class="iconfont icon-shouye"></i>首页</router-link
+          <router-link to="/">
+            <svg class="icon" aria-hidden="true">
+              <use xlink:href="#icon-shouye"></use>
+            </svg>
+            首页</router-link
           >
         </li>
         <li>
-          <router-link to="/archive"
-            ><i class="iconfont icon-guidang"></i>归档</router-link
+          <router-link to="/archive">
+            <svg class="icon" aria-hidden="true">
+              <use xlink:href="#icon-guidang"></use>
+            </svg>
+            归档</router-link
           >
         </li>
         <li>
-          <router-link to="/category"
-            ><i class="iconfont icon-fenlei"></i>分类</router-link
+          <router-link to="/category">
+            <svg class="icon" aria-hidden="true">
+              <use xlink:href="#icon-fenlei"></use>
+            </svg>
+            分类</router-link
           >
         </li>
         <li>
-          <router-link to="/tag"
-            ><i class="iconfont icon-24gl-tags4"></i>标签</router-link
+          <router-link to="/tag">
+            <svg class="icon" aria-hidden="true">
+              <use xlink:href="#icon-tags"></use>
+            </svg>
+            标签</router-link
           >
         </li>
         <li>
-          <router-link to="/article/add"
-            ><i class="iconfont icon-suibi"></i>新随笔</router-link
+          <router-link to="/article/add">
+            <svg class="icon" aria-hidden="true">
+              <use xlink:href="#icon-suibi"></use>
+            </svg>
+            新随笔</router-link
           >
         </li>
         <li>
-          <router-link to="/user/settings"
-            ><i class="iconfont icon-yonghu"></i>个人中心</router-link
+          <router-link to="/user/settings">
+            <svg class="icon" aria-hidden="true">
+              <use xlink:href="#icon-yonghu"></use></svg
+            >个人中心</router-link
           >
         </li>
       </ul>
@@ -63,7 +80,7 @@
     }
   }
   .right {
-    .iconfont {
+    .icon {
       color: #fff; /* 设置图标颜色为白色 */
       font-size: 16px; /* 设置图标大小 */
     }
