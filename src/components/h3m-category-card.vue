@@ -8,13 +8,34 @@
       </div>
       <div class="info">分类</div>
     </div>
-    <router-link to="/" class="category-item">
-      <div class="left">markdown</div>
-      <div class="right">12312</div>
+    <router-link
+      :to="`/category/${item.id}`"
+      class="category-item"
+      v-for="item in categoryList"
+      :key="item.id"
+    >
+      <div class="left">{{ item.name }}</div>
+      <div class="right">{{ item.count }}</div>
     </router-link>
   </div>
 </template>
-<script setup></script>
+<script setup>
+import { onMounted, ref } from "vue";
+import { useRouter } from "vue-router";
+import { useUserStore } from "../store/useUserStore";
+import { getCategoryList } from "../api/category";
+const router = useRouter();
+const { user } = useUserStore();
+const categoryList = ref([]);
+
+onMounted(() => {
+  getList();
+});
+const getList = async () => {
+  const res = await getCategoryList(user.currentUserInfo.id);
+  categoryList.value = res.data.data;
+};
+</script>
 <style lang="scss" scoped>
 .category-card {
   width: 100%;

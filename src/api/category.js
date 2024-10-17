@@ -5,6 +5,10 @@ import axios from "axios";
  * @returns
  */
 function getCategoryCount(userId) {
-  return axios.get(`/api/category/${userId}`);
+  return axios.get(`/api/category/count/${userId}`);
 }
-export { getCategoryCount };
+
+function getCategoryList(userId) {
+  return axios.get(`/api/category/name/${userId}`);
+}
+export { getCategoryCount, getCategoryList };

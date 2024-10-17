@@ -9,26 +9,31 @@
       <div class="info">标签</div>
     </div>
     <div class="main">
-      <router-link to="/" class="tag-item"> Vue </router-link>
-      <router-link to="/" class="tag-item"> Vue </router-link>
-      <router-link to="/" class="tag-item"> Vue </router-link>
-      <router-link to="/" class="tag-item"> Vue </router-link>
-      <router-link to="/" class="tag-item"> Vue </router-link>
-      <router-link to="/" class="tag-item"> Vue </router-link>
-      <router-link to="/" class="tag-item"> Vue </router-link>
-      <router-link to="/" class="tag-item"> Vue </router-link>
-      <router-link to="/" class="tag-item"> Vue </router-link>
-      <router-link to="/" class="tag-item"> Vue </router-link>
-      <router-link to="/" class="tag-item"> Vue </router-link>
-      <router-link to="/" class="tag-item"> Vue </router-link>
-      <router-link to="/" class="tag-item"> Vue </router-link>
-      <router-link to="/" class="tag-item"> Vue </router-link>
-      <router-link to="/" class="tag-item"> Vue </router-link>
-      <router-link to="/" class="tag-item"> Vue </router-link>
+      <router-link
+        :to="`/tag/${item.id}`"
+        class="tag-item"
+        v-for="item in tagNameList"
+        :key="item.id"
+      >
+        {{ item.name }}
+      </router-link>
     </div>
   </div>
 </template>
-<script setup></script>
+<script setup>
+import { onMounted, ref } from "vue";
+import { getTagNameList } from "@/api/tag";
+import { useUserStore } from "../store/useUserStore";
+const tagNameList = ref([]);
+const { user } = useUserStore();
+onMounted(() => {
+  getList();
+});
+const getList = async () => {
+  const res = await getTagNameList(user.currentUserInfo.id);
+  tagNameList.value = res.data.data;
+};
+</script>
 <style lang="scss" scoped>
 .tag-card {
   width: 100%;
@@ -67,7 +72,7 @@
       padding: 0 4px;
       overflow-wrap: break-word;
       line-height: 2;
-      color: var(--text-color);
+      color: #999b9d;
       &:hover {
         color: var(--theme-color);
       }

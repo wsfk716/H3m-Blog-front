@@ -5,6 +5,10 @@ import axios from "axios";
  * @returns
  */
 function getTagCount(userId) {
-  return axios.get(`/api/tag/${userId}`);
+  return axios.get(`/api/tag/count/${userId}`);
 }
-export { getTagCount };
+
+function getTagNameList(userId) {
+  return axios.get(`/api/tag/name/${userId}`);
+}
+export { getTagCount, getTagNameList };
