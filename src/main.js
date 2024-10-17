@@ -10,6 +10,8 @@ import router from "./router";
 import * as ElementPlusIconsVue from "@element-plus/icons-vue";
 import "@/assets/iconfont/iconfont.js";
 import "@/utils/axios.config.js";
+import VueMavonEditor from "mavon-editor";
+import "mavon-editor/dist/css/index.css";
 const pinia = createPinia();
 pinia.use(piniaPluginPersistedstate);
 const app = createApp(App);
@@ -22,4 +24,5 @@ for (const [key, component] of Object.entries(ElementPlusIconsVue)) {
   app.component(key, component);
 }
 app.use(router);
+app.use(VueMavonEditor);
 app.mount("#app");

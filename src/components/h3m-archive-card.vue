@@ -5,7 +5,7 @@
         <svg class="icon" aria-hidden="true">
           <use xlink:href="#icon-nav_wodeguidang"></use>
         </svg>
-        <div class="info">标签</div>
+        <div class="info">归档</div>
       </div>
       <div class="right">
         <el-icon><ArrowRightBold /></el-icon>

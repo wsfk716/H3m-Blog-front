@@ -1,39 +1,75 @@
 <template>
-  <div class="post-article-card">
+  <div class="post-article-card" v-for="item in articleList" :key="item.id">
     <!-- 缩略图 -->
-    <router-link to="/" class="img">
-      <img src="../assets/image/login-background.jpg" alt="" />
+    <router-link
+      :to="{ name: 'ArticleDetails', params: { id: item.id } }"
+      class="img"
+    >
+      <img :src="item.thumbnail" alt="文章缩略图" class="article-thumbnail" />
     </router-link>
     <!-- 文章信息 -->
     <div class="info">
-      <router-link to="/" class="title">标题</router-link>
+      <router-link
+        :to="{ name: 'ArticleDetails', params: { id: item.id } }"
+        class="title"
+        >标题</router-link
+      >
       <!-- 其他元数据 -->
       <div class="meta-data-wrap">
         <div class="date">
           <svg class="icon" aria-hidden="true">
             <use xlink:href="#icon-rili"></use>
           </svg>
-          发表于 2021-09-01 |
+          发表于 {{ formatDate(item.createTime) }} |
         </div>
         <div class="category">
           <svg class="icon" aria-hidden="true">
             <use xlink:href="#icon-wenjianguidang"></use>
           </svg>
-          分类 markdown |
+          分类 {{ item.categoryName }} |
         </div>
         <div class="readNumber">
           <svg class="icon" aria-hidden="true">
             <use xlink:href="#icon-yueduxiao"></use>
           </svg>
-          阅读 100
+          阅读 {{ item.viewCount }}
         </div>
       </div>
       <!-- 摘要 -->
-      <div class="summary">摘要</div>
+      <div class="summary">{{ item.content }}</div>
     </div>
   </div>
 </template>
-<script setup></script>
+<script setup>
+import { useRouter } from "vue-router";
+import { ref, watch } from "vue";
+import { useUserStore } from "../store/useUserStore";
+
+const router = useRouter();
+const articleList = ref([]);
+const props = defineProps({
+  articleList: {
+    type: Array,
+    required: true,
+  },
+});
+
+// 观察 articleList 变化
+watch(
+  () => props.articleList,
+  (newVal) => {
+    // console.log(newVal); // 检查 articleList 的值
+    articleList.value = newVal;
+  },
+  { immediate: true }
+);
+
+// 格式化日期
+const formatDate = (dateString) => {
+  const options = { year: "numeric", month: "2-digit", day: "2-digit" };
+  return new Date(dateString).toLocaleDateString("zh-CN", options);
+};
+</script>
 <style lang="scss" scoped>
 .post-article-card {
   height: 252px;
@@ -44,7 +80,7 @@
   background: white;
   border-radius: 8px;
   box-shadow: var(--card-box-shadow);
-
+  margin-bottom: 20px;
   .img {
     width: 40%;
     height: 100%;
