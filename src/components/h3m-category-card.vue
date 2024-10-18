@@ -23,7 +23,7 @@
 import { onMounted, ref } from "vue";
 import { useRouter } from "vue-router";
 import { useUserStore } from "../store/useUserStore";
-import { getCategoryList } from "../api/category";
+import { getCategoryNameList } from "../api/category";
 const router = useRouter();
 const { user } = useUserStore();
 const categoryList = ref([]);
@@ -32,7 +32,7 @@ onMounted(() => {
   getList();
 });
 const getList = async () => {
-  const res = await getCategoryList(user.currentUserInfo.id);
+  const res = await getCategoryNameList(user.currentUserInfo.id);
   categoryList.value = res.data.data;
 };
 </script>

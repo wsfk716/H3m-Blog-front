@@ -8,7 +8,7 @@ function getCategoryCount(userId) {
   return axios.get(`/api/category/count/${userId}`);
 }
 
-function getCategoryList(userId) {
+function getCategoryNameList(userId) {
   return axios.get(`/api/category/name/${userId}`);
 }
-export { getCategoryCount, getCategoryList };
+export { getCategoryCount, getCategoryNameList };

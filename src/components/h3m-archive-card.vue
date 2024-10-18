@@ -27,7 +27,7 @@
 <script setup>
 import { onMounted, ref } from "vue";
 import { useRouter } from "vue-router";
-import { getArchiveList } from "@/api/archive";
+import { getArchiveCountList } from "@/api/archive";
 import { ElMessage } from "element-plus";
 import { useUserStore } from "@/store/useUserStore";
 const { user } = useUserStore();
@@ -41,7 +41,7 @@ onMounted(() => {
   getList();
 });
 const getList = async () => {
-  const res = await getArchiveList(user.currentUserInfo.id);
+  const res = await getArchiveCountList(user.currentUserInfo.id);
   if (res.data.code == 1) {
     archiveList.value = res.data.data;
   } else {

@@ -1,25 +1,27 @@
 <template>
   <div class="cover">
-    <div class="title particletext bubbles">✨ Kila Kila Blog ✨</div>
-    <div class="text">雄关漫道真如铁，而今迈步从头越</div>
-    <!-- 一个向下箭头图标，点击后会向下滚动到内容 -->
-    <el-icon @click="scrollDown"><ArrowDown /></el-icon>
+    <div class="title particletext bubbles">✨ {{ title }} ✨</div>
+    <div class="text">{{ text }}</div>
   </div>
 </template>
 <script setup>
 import createParticles from "@/utils/text-effect";
-import { onMounted } from "vue";
+import { onMounted, defineProps } from "vue";
+
+const props = defineProps({
+  title: {
+    type: String,
+    default: "✨ xxx ✨",
+  },
+  text: {
+    type: String,
+    default: "雄关漫道真如铁，而今迈步从头越",
+  },
+});
 
 onMounted(() => {
   createParticles();
 });
-
-const scrollDown = () => {
-  window.scrollTo({
-    top: window.innerHeight, // 滚动到下一个屏幕, innerHeight为浏览器窗口的高度
-    behavior: "smooth", // 平滑滚动
-  });
-};
 </script>
 <style lang="scss" scoped>
 .cover {
@@ -27,9 +29,9 @@ const scrollDown = () => {
   flex-direction: column;
   justify-content: center;
   align-items: center;
-  height: 100vh;
+  height: 400px;
   width: 100vw;
-  background-image: url("@/assets/image/home-cover.jpg");
+  background-image: url("@/assets/image/home-cover.png");
   background-size: cover;
   background-position: center;
   position: relative; /* 设置父容器为相对定位 */
