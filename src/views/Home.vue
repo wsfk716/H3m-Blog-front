@@ -31,6 +31,12 @@
         ></el-pagination>
       </div>
     </div>
+
+    <!-- 页脚 -->
+    <h3m-footer></h3m-footer>
+
+    <!-- 滚动到顶部按钮 -->
+    <h3m-back-to-top></h3m-back-to-top>
   </div>
 </template>
 <script setup>
@@ -42,7 +48,8 @@ import H3mCategoryCard from "@/components/h3m-category-card.vue";
 import H3mTagCard from "@/components/h3m-tag-card.vue";
 import H3mArchiveCard from "@/components/h3m-archive-card.vue";
 import H3mPostArticleCard from "@/components/h3m-post-article-card.vue";
-
+import H3mFooter from "@/components/h3m-footer.vue";
+import H3mBackToTop from "@/components/h3m-back-to-top.vue";
 import { onMounted, ref } from "vue";
 import { getArticleCount, getArticleList } from "@/api/article";
 import { useUserStore } from "@/store/useUserStore";
