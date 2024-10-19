@@ -12,6 +12,11 @@ axios.interceptors.request.use(
     if (token) {
       config.headers.authorization = token;
     }
+    // 如果是上传图片，则重新设置token
+    if (config.url.includes("/image")) {
+      config.headers.authorization =
+        "Bearer 7|GkrEwwP8TvyyYKFeMZqdOEjQ2XxAKuiwLvQEcavd";
+    }
 
     loading = ElLoading.service({ fullscreen: true });
     return config;

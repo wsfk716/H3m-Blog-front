@@ -19,4 +19,20 @@ function login(data) {
 function register(data) {
   return axios.post("/api/user/register", data);
 }
-export { login, register };
+
+/**
+ * 退出登录
+ */
+function logout() {
+  return axios.post("/api/logout");
+}
+
+/**
+ * 更新用户信息
+ * @param {User} data
+ * @returns
+ */
+function updateUserInfo(data) {
+  return axios.put("/api/user", data);
+}
+export { login, register, logout, updateUserInfo };

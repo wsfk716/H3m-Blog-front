@@ -75,7 +75,7 @@ onMounted(() => {
   TagCount();
 });
 const { user } = useUserStore();
-const avatarUrl = ref(avatarImage);
+const avatarUrl = ref(user.currentUserInfo.avatar || avatarImage);
 // Follow Me
 const handleFollowMe = () => {
   window.open(concatGithub(), "_blank");

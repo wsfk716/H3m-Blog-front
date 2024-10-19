@@ -15,6 +15,13 @@ export default defineConfig({
           return path.replace(/^\/api/, "");
         },
       },
+      "/image": {
+        target: "https://imglt.com/api/v1",
+        changeOrigin: true,
+        rewrite: (path) => {
+          return path.replace(/^\/image/, "");
+        },
+      },
     },
   },
   resolve: {
