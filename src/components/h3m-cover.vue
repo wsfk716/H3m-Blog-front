@@ -1,6 +1,7 @@
 <template>
   <div class="cover">
     <div class="title particletext bubbles">✨ Kila Kila Blog ✨</div>
+
     <div class="text">雄关漫道真如铁，而今迈步从头越</div>
     <!-- 一个向下箭头图标，点击后会向下滚动到内容 -->
     <el-icon @click="scrollDown"><ArrowDown /></el-icon>

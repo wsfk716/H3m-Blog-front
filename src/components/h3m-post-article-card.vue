@@ -12,7 +12,7 @@
       <router-link
         :to="{ name: 'ArticleDetails', params: { id: item.id } }"
         class="title"
-        >标题</router-link
+        >{{ item.title }}</router-link
       >
       <!-- 其他元数据 -->
       <div class="meta-data-wrap">

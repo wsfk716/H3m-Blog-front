@@ -1,6 +1,11 @@
 <template>
   <div class="cover">
-    <div class="title particletext bubbles">✨ {{ title }} ✨</div>
+    <div class="title particletext bubbles" v-if="title">
+      {{ title }}
+    </div>
+    <div class="slot particletext bubbles" v-else>
+      <slot></slot>
+    </div>
     <div class="text">{{ text }}</div>
   </div>
 </template>
@@ -11,11 +16,9 @@ import { onMounted, defineProps } from "vue";
 const props = defineProps({
   title: {
     type: String,
-    default: "✨ xxx ✨",
   },
   text: {
     type: String,
-    default: "雄关漫道真如铁，而今迈步从头越",
   },
 });
 
@@ -37,8 +40,20 @@ onMounted(() => {
   position: relative; /* 设置父容器为相对定位 */
   animation: fadeIn 1.5s ease-in-out; /* 应用渐进式加载动画 */
   .title {
+    display: flex;
     font-family: "kanit";
+    justify-content: center;
+    align-items: center;
     font-size: 65px;
+    color: #fff;
+    text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5); /* 添加立体阴影效果 */
+  }
+  .slot {
+    font-size: 36px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-family: "kanit";
     color: #fff;
     text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5); /* 添加立体阴影效果 */
   }

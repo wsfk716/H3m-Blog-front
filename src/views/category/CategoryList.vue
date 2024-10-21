@@ -4,7 +4,7 @@
     <h3m-header></h3m-header>
     <!-- 封面 -->
     <h3m-cover-other
-      title="分类"
+      title="✨ 分类 ✨"
       text="雄关漫道真如铁，而今迈步从头越"
     ></h3m-cover-other>
     <div class="container">

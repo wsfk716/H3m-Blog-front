@@ -6,6 +6,20 @@
   "description": "",
   "glyphs": [
     {
+      "icon_id": "7542760",
+      "name": "24gf-tags3",
+      "font_class": "24gf-tags3",
+      "unicode": "e886",
+      "unicode_decimal": 59526
+    },
+    {
+      "icon_id": "22325358",
+      "name": "批量修改",
+      "font_class": "piliangxiugai",
+      "unicode": "e610",
+      "unicode_decimal": 58896
+    },
+    {
       "icon_id": "658053",
       "name": "相机",
       "font_class": "xiangji",
