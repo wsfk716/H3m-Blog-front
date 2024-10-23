@@ -13,4 +13,29 @@ function getCommentList(articleId, pageNum, pageSize) {
   );
 }
 
-export { getCommentList };
+/**
+ * 添加评论
+ * @param {object} comment
+ * @returns
+ */
+function addComment(comment) {
+  return axios.post("/api/comment", comment);
+}
+/**
+ * 修改评论
+ * @param {object} comment
+ * @returns
+ */
+function updateComment(comment) {
+  return axios.put("/api/comment", comment);
+}
+
+/**
+ * 删除评论
+ * @param {BigInteger} commentId
+ * @returns
+ */
+function deleteComment(commentId) {
+  return axios.delete(`/api/comment/${commentId}`);
+}
+export { getCommentList, addComment, updateComment, deleteComment };

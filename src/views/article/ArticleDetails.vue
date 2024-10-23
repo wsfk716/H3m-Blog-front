@@ -130,10 +130,68 @@
           >&nbsp;&nbsp;
           <span>作者: {{ user.currentUserInfo.nickName }}</span> &nbsp;&nbsp;
           <span>阅读: {{ articleDetails.viewCount }}</span> &nbsp;&nbsp;
-          <span>评论: {{ articleDetails.commentCount }}</span> &nbsp;&nbsp;
+          <span>评论: {{ commentCount }}</span> &nbsp;&nbsp;
           <router-link :to="`/article/${articleDetails.id}/edit`"
             >编辑</router-link
           >
+        </div>
+        <!-- 评论区域 -->
+        <div class="comment-area">
+          <div class="comment-area-title">
+            <!-- 图标 -->
+            <svg class="icon" aria-hidden="true">
+              <use xlink:href="#icon-pinglun1"></use>
+            </svg>
+            <!-- 标题 -->
+            <span>评论区</span>
+          </div>
+          <!-- 评论 -->
+          <div class="comment-items">
+            <h3m-comment-item-card
+              v-for="(item, index) in commentList"
+              :key="item.id"
+              :comment="item"
+              :index="index + pageSize * (currentPageNum - 1)"
+              @reply="handleReplyComment"
+              @update="handleUpdateComment"
+              @delete="handleDeleteComment"
+            ></h3m-comment-item-card>
+          </div>
+
+          <!-- 分页 -->
+          <el-pagination
+            background
+            :current-page="currentPageNum"
+            layout="prev, pager, next"
+            :total="commentCount"
+            :page-size="pageSize"
+            @current-change="onCurrentCommentPageChanged"
+            v-if="commentCount > 0"
+            class="comment-pagination"
+          >
+          </el-pagination>
+        </div>
+        <!-- 发表评论 -->
+        <div class="comment-form">
+          <div class="comment-form-title">✏️ 发表评论</div>
+          <div class="comment-editor">
+            <mavon-editor
+              v-model="newCommentContent"
+              class="mavon"
+              codeStyle="atom-one-dark"
+              :autofocus="false"
+              :boxShadow="false"
+              @imgAdd="onImageAdded"
+              ref="mavonRef"
+              placeholder="发表一条伟大的评论吧~"
+              defaultOpen="edit"
+              :toolbars="mavonToolbarOption"
+              :subfield="false"
+            />
+            <button class="comment-submit-btn" @click="submitComment">
+              {{ isInEditMode ? "修改评论" : "提交评论" }}
+            </button>
+          </div>
         </div>
       </div>
     </div>
@@ -159,7 +217,15 @@ import markdownIt from "@/utils/markdown-it";
 import { initMathJax, renderByMathjax } from "@/utils/mathjax";
 import buildCodeBlock from "@/utils/code-block";
 import { useUserStore } from "../../store/useUserStore";
-import { getCommentList } from "@/api/comment";
+import {
+  getCommentList,
+  addComment,
+  updateComment,
+  deleteComment,
+} from "@/api/comment";
+import H3mCommentItemCard from "../../components/h3m-comment-item-card.vue";
+import { ElMessageBox } from "element-plus";
+import { uploadImage } from "@/api/image";
 const route = useRoute();
 const articleId = ref(route.params.id);
 const articleDetails = ref({});
@@ -170,7 +236,7 @@ const currentUrl = window.location.href;
 onMounted(() => {
   getArticleDetails();
   PreviousNextArticle();
-  getComment();
+  onCurrentCommentPageChanged(1);
 });
 
 // 监听路由变化
@@ -180,7 +246,7 @@ watch(
     articleId.value = newVal;
     getArticleDetails();
     PreviousNextArticle();
-    getComment();
+    onCurrentCommentPageChanged(1);
   }
 );
 
@@ -193,7 +259,7 @@ const getArticleDetails = async () => {
     nextTick(() => {
       initMathJax({}, () => {
         renderByMathjax(".article-content");
-        // renderByMathjax(".comment-item-content");
+        renderByMathjax(".comment-item-content");
       });
       buildCodeBlock(".article-content");
       // articleLoaded.value = true;
@@ -239,18 +305,149 @@ const PreviousNextArticle = async () => {
 // 获取评论列表
 const commentList = ref([]);
 const pageSize = ref(5);
-const pageNum = ref(1);
-const getComment = async () => {
-  const res = await getCommentList(
-    articleId.value,
-    pageNum.value,
-    pageSize.value
-  );
+const commentCount = ref(0);
+const currentPageNum = ref(1);
+// 分页
+const onCurrentCommentPageChanged = async (pageNum) => {
+  currentPageNum.value = pageNum;
+  const res = await getCommentList(articleId.value, pageNum, pageSize.value);
   if (res.data.code === 1) {
     commentList.value = res.data.data;
-    console.log(commentList.value);
+    commentCount.value = commentList.value[0].total;
+    // console.log(commentList.value);
+    nextTick(() => {
+      renderByMathjax(".comment-item-content");
+      buildCodeBlock(".comment-item-content");
+    });
   } else {
     ElMessage.error(res.data.msg);
+  }
+};
+
+// ---------------------富文本编辑器的功能------------------------
+// 添加评论
+let mavonToolbarOption = {
+  bold: true, // 粗体
+  italic: true, // 斜体
+  header: true, // 标题
+  underline: true, // 下划线
+  strikethrough: true, // 中划线
+  mark: true, // 标记
+  superscript: true, // 上角标
+  subscript: true, // 下角标
+  quote: true, // 引用
+  ol: true, // 有序列表
+  ul: true, // 无序列表
+  link: true, // 链接
+  imagelink: true, // 图片链接
+  code: true, // code
+  table: true, // 表格
+  fullscreen: true, // 全屏编辑
+  help: true, // 帮助
+  navigation: true, // 导航目录
+  alignleft: true, // 左对齐
+  aligncenter: true, // 居中
+  alignright: true, // 右对齐
+  subfield: true, // 单双栏模式
+  preview: true, // 预览
+};
+const mavonRef = ref(null);
+function onImageAdded(pos, file) {
+  uploadImage(file)
+    .then((res) => {
+      if (res.data.status === true) {
+        const url = res.data.data.links.url;
+        mavonRef.value.$img2Url(pos, url);
+      } else {
+        ElMessage.error(res.data.msg);
+      }
+    })
+    .catch(() => {
+      ElMessage.error("图片上传失败");
+    });
+}
+
+// ----------------------------------评论的添加、删除、编辑----------------------------------------------
+const isInEditMode = ref(false);
+const editedComment = ref({});
+const newCommentContent = ref("");
+// 处理提交评论的点击事件
+const submitComment = () => {
+  if (isInEditMode.value) {
+    updateCommentContent();
+  } else {
+    addNewComment();
+  }
+};
+// 处理回复评论的点击事件
+const handleReplyComment = (comment) => {
+  newCommentContent.value = `@${comment.nickName}\n>${comment.content.replace(
+    /\n/g,
+    "\n>"
+  )}\n\n`;
+};
+
+// 处理修改评论的点击事件
+
+const handleUpdateComment = (comment) => {
+  newCommentContent.value = comment.content;
+  isInEditMode.value = true;
+  editedComment.value = comment;
+};
+
+// 处理删除评论的点击事件
+const handleDeleteComment = (comment) => {
+  ElMessageBox.confirm("前辈确定删除这条评论吗？", "一条友善的提示", {
+    confirmButtonText: "你在教我做事？",
+    cancelButtonText: "我再想想",
+    type: "warning",
+  }).then(() => {
+    deleteComment(comment.id).then(() => {
+      ElMessage.success("删除评论成功~");
+      currentPageNum.value = 1;
+      onCurrentCommentPageChanged(currentPageNum.value);
+    });
+  });
+};
+
+// 发表评论
+
+const addNewComment = async () => {
+  const res = await addComment({
+    articleId: articleId.value,
+    content: newCommentContent.value,
+    createBy: user.currentUserInfo.id,
+    updateBy: user.currentUserInfo.id,
+  });
+  if (res.data.code === 1) {
+    ElMessage.success(res.data.msg);
+    newCommentContent.value = "";
+    currentPageNum.value = 1;
+    onCurrentCommentPageChanged(currentPageNum.value);
+  } else {
+    ElMessage.error(res.data.msg);
+  }
+};
+// 修改评论
+const updateCommentContent = async () => {
+  const res = await updateComment({
+    id: editedComment.value.id,
+    articleId: articleId.value,
+    content: newCommentContent.value,
+    updateBy: user.currentUserInfo.id,
+  });
+  if (res.data.code === 1) {
+    ElMessage.success("修改评论成功~");
+    newCommentContent.value = "";
+    // 重新获取评论列表
+    // currentPageNum.value = 1;
+    // onCurrentCommentPageChanged(currentPageNum.value);
+    // 刷新页面
+    window.location.reload();
+    // 退出编辑模式
+    isInEditMode.value = false;
+  } else {
+    ElMessage.error("修改评论失败~");
   }
 };
 </script>
@@ -639,6 +836,55 @@ const getComment = async () => {
           cursor: pointer;
           &:hover {
             color: #ff7242;
+          }
+        }
+      }
+      .comment-area {
+        margin-top: 50px;
+
+        .comment-area-title {
+          display: flex;
+          align-items: center;
+          margin-bottom: 20px;
+          font-size: 24px;
+          .icon {
+            font-size: 36px;
+            margin-right: 10px;
+          }
+        }
+
+        .comment-pagination {
+          margin-top: 20px;
+          justify-content: center;
+        }
+      }
+
+      .comment-form {
+        .comment-form-title {
+          font-size: 20px;
+          margin: 40px 0 20px;
+          color: var(--text-color);
+        }
+
+        .comment-editor {
+          .mavon {
+            border-color: #eef2f8;
+          }
+
+          .comment-submit-btn {
+            color: white;
+            background-color: var(--theme-color);
+            border: 1px solid var(--theme-color);
+            border-radius: 5px;
+            cursor: pointer;
+            padding: 7px 17px;
+            font-size: 13px;
+            margin: 10px 0;
+            transition: all 0.3s ease-out;
+
+            &:hover {
+              opacity: 0.7;
+            }
           }
         }
       }

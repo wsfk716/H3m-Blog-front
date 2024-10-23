@@ -35,4 +35,13 @@ function logout() {
 function updateUserInfo(data) {
   return axios.put("/api/user", data);
 }
-export { login, register, logout, updateUserInfo };
+
+/**
+ * 判断是否是管理员
+ * @param {BigInteger} userId
+ * @returns
+ */
+function getIsAdmin(userId) {
+  return axios.get(`/api/user/isAdmin/${userId}`);
+}
+export { login, register, logout, updateUserInfo, getIsAdmin };

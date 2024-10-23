@@ -129,10 +129,11 @@
 <script setup>
 import { onMounted, ref } from "vue";
 import { ElMessage } from "element-plus";
-import { login, register } from "../api/user";
+import { login, register, getIsAdmin } from "../api/user";
 import { useRouter } from "vue-router";
 import { useUserStore } from "@/store/useUserStore";
-const { changeUser } = useUserStore();
+
+const { changeUser, user } = useUserStore();
 const router = useRouter();
 
 onMounted(() => {
@@ -173,12 +174,15 @@ const onLogin = async () => {
   if (loginFormRef.value.validate()) {
     // console.log(loginForm.value);
     const res = await login(loginForm.value);
-    console.log(res);
+    // console.log(res);
     if (res.data.code === 1) {
       ElMessage.success("登录成功");
 
       // 保存用户信息到pinia中
       changeUser(res.data.data);
+      console.log(user.currentUserInfo);
+
+      // console.log(user.currentUserInfo.isAdmin);
       // 如果选择了记住密码，则将账号密码保存到localStorage中
       if (loginForm.value.rememberMe) {
         localStorage.setItem("userName", loginForm.value.userName);
