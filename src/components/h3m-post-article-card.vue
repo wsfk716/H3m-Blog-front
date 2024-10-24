@@ -20,19 +20,19 @@
           <svg class="icon" aria-hidden="true">
             <use xlink:href="#icon-rili"></use>
           </svg>
-          发表于 {{ formatDate(item.createTime) }} |
+          发表于&nbsp;&nbsp; {{ formatDate(item.createTime) }} |
         </div>
         <div class="category">
           <svg class="icon" aria-hidden="true">
             <use xlink:href="#icon-wenjianguidang"></use>
           </svg>
-          分类 {{ item.categoryName }} |
+          分类&nbsp;&nbsp; {{ item.categoryName }} |
         </div>
         <div class="readNumber">
           <svg class="icon" aria-hidden="true">
             <use xlink:href="#icon-yueduxiao"></use>
           </svg>
-          阅读 {{ item.viewCount }}
+          阅读&nbsp;&nbsp; {{ item.viewCount }}
         </div>
       </div>
       <!-- 摘要 -->

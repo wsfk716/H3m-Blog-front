@@ -37,9 +37,32 @@ function getPreviousNextArticle(articleId, userId) {
     `/api/article/previousNextArticle?articleId=${articleId}&userId=${userId}`
   );
 }
+
+/**
+ * 根据标签或者分类获取文章列表, 传入参数为用户id，标签id，分类id，页码，每页数量。
+ * 如果是根据标签获取文章列表，则传入的分类id为0，反之亦然。
+ * @param {BigInteger} userId
+ * @param {BigInteger} tagId
+ * @param {BigInteger} categoryId
+ * @param {BigInteger} pageNum
+ * @param {BigInteger} pageSize
+ * @returns
+ */
+function getArticleListByTagOrCategory(
+  userId,
+  tagId,
+  categoryId,
+  pageNum,
+  pageSize
+) {
+  return axios.get(
+    `/api/article/articleList/${userId}?tagId=${tagId}&categoryId=${categoryId}&pageNum=${pageNum}&pageSize=${pageSize}`
+  );
+}
 export {
   getArticleCount,
   getArticleList,
   getArticleDetail,
   getPreviousNextArticle,
+  getArticleListByTagOrCategory,
 };
