@@ -43,8 +43,10 @@
       <!-- 侧边栏 -->
       <div class="side-content">
         <h3m-admin-card></h3m-admin-card>
-        <h3m-catalog-card></h3m-catalog-card>
-        <h3m-hot-article-card></h3m-hot-article-card>
+        <div class="sticky-layout">
+          <h3m-catalog-card></h3m-catalog-card>
+          <h3m-hot-article-card></h3m-hot-article-card>
+        </div>
       </div>
       <!-- 文章详情 -->
       <div class="article-details">
@@ -231,6 +233,7 @@ const articleId = ref(route.params.id);
 const articleDetails = ref({});
 const renderedMarkdown = ref("");
 const { user } = useUserStore();
+
 // 获取当前url
 const currentUrl = window.location.href;
 onMounted(() => {
@@ -244,9 +247,7 @@ watch(
   () => route.params.id,
   (newVal) => {
     articleId.value = newVal;
-    getArticleDetails();
-    PreviousNextArticle();
-    onCurrentCommentPageChanged(1);
+    window.location.reload();
   }
 );
 
@@ -313,6 +314,10 @@ const onCurrentCommentPageChanged = async (pageNum) => {
   const res = await getCommentList(articleId.value, pageNum, pageSize.value);
   if (res.data.code === 1) {
     commentList.value = res.data.data;
+    if (commentList.value.length === 0) {
+      commentCount.value = 0;
+      return;
+    }
     commentCount.value = commentList.value[0].total;
     // console.log(commentList.value);
     nextTick(() => {
@@ -451,6 +456,7 @@ const updateCommentContent = async () => {
   }
 };
 </script>
+
 <style lang="scss" scoped>
 .home {
   background-color: #fff;
@@ -466,6 +472,11 @@ const updateCommentContent = async () => {
       margin-right: 20px;
       .card {
         margin-bottom: 20px;
+      }
+
+      .sticky-layout {
+        position: sticky;
+        top: 20px;
       }
     }
     .article-details {

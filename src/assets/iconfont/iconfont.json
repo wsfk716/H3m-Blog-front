@@ -6,6 +6,13 @@
   "description": "",
   "glyphs": [
     {
+      "icon_id": "13063381",
+      "name": "课程目录",
+      "font_class": "kechengmulu",
+      "unicode": "e71b",
+      "unicode_decimal": 59163
+    },
+    {
       "icon_id": "1340910",
       "name": "评论Comment_1",
       "font_class": "pinglun1",
