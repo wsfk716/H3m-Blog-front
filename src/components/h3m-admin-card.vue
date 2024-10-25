@@ -7,18 +7,18 @@
     </div>
     <!-- 文章信息 -->
     <div class="article-info-container">
-      <div>
+      <router-link to="/archive">
         <p>文章</p>
         <p>{{ articleCount }}</p>
-      </div>
-      <div>
+      </router-link>
+      <router-link to="/category">
         <p>分类</p>
         <p>{{ categoryCount }}</p>
-      </div>
-      <div>
+      </router-link>
+      <router-link to="/tag">
         <p>标签</p>
         <p>{{ tagCount }}</p>
-      </div>
+      </router-link>
     </div>
     <!-- 联系方式 -->
     <div class="concat">

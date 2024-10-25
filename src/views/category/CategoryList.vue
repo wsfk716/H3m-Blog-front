@@ -20,7 +20,10 @@
       <div class="category-list">
         <div class="category-item" v-for="item in categoryList" :key="item.id">
           <router-link
-            :to="{ name: 'CategoryDetails', params: { id: item.id } }"
+            :to="{
+              name: 'CategoryDetails',
+              params: { id: item.id, categoryName: item.name },
+            }"
           >
             <div>{{ item.name }}</div>
           </router-link>

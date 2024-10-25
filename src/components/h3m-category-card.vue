@@ -9,7 +9,7 @@
       <div class="info">分类</div>
     </div>
     <router-link
-      :to="`/category/${item.id}`"
+      :to="`/category/${item.id}/${item.name}`"
       class="category-item"
       v-for="item in categoryList"
       :key="item.id"

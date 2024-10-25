@@ -19,7 +19,12 @@
       <!-- 文章列表 -->
       <div class="tag-list">
         <div class="tag-item" v-for="item in tagList" :key="item.id">
-          <router-link :to="{ name: 'TagDetails', params: { id: item.id } }">
+          <router-link
+            :to="{
+              name: 'TagDetails',
+              params: { id: item.id, tagName: item.name },
+            }"
+          >
             <div>{{ item.name }}</div>
           </router-link>
         </div>

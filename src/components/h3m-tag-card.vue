@@ -10,7 +10,7 @@
     </div>
     <div class="main">
       <router-link
-        :to="`/tag/${item.id}`"
+        :to="`/tag/${item.id}/${item.name}`"
         class="tag-item"
         v-for="item in tagNameList"
         :key="item.id"

@@ -53,11 +53,12 @@ import H3mArchiveCard from "@/components/h3m-archive-card.vue";
 import H3mPostArticleCard from "@/components/h3m-post-article-card.vue";
 import H3mFooter from "@/components/h3m-footer.vue";
 import H3mBackToTop from "@/components/h3m-back-to-top.vue";
-import { onMounted, ref } from "vue";
-import { getArticleListByTagOrCategory } from "@/api/article";
+import { onMounted, ref, watch } from "vue";
+import { getArticleListByTagOrCategoryOrDate } from "@/api/article";
 import { useUserStore } from "@/store/useUserStore";
 import { ElMessage } from "element-plus";
 import { useRoute } from "vue-router";
+
 const route = useRoute();
 const categoryId = route.params.id;
 const { user } = useUserStore();
@@ -68,20 +69,31 @@ const title = ref("");
 
 onMounted(() => {
   onCurrentPageChanged(1);
+  title.value = "✨" + route.params.categoryName + "✨";
 });
 
+watch(
+  () => route.params,
+  () => {
+    // 刷新页面
+    window.location.reload();
+  }
+);
 const onCurrentPageChanged = async (pageNum) => {
-  const res = await getArticleListByTagOrCategory(
+  const res = await getArticleListByTagOrCategoryOrDate(
     user.currentUserInfo.id,
     0,
     categoryId,
+    "",
     pageNum,
     pageSize
   );
   if (res.data.code === 1) {
+    if (res.data.data.total === 0) {
+      ElMessage.warning("暂无文章");
+    }
     articleCount.value = res.data.data.total;
     articleList.value = res.data.data.rows;
-    title.value = "✨" + articleList.value[0]?.categoryName + "✨";
   } else {
     ElMessage.error("获取文章列表失败");
   }

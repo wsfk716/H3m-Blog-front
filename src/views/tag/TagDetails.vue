@@ -53,8 +53,8 @@ import H3mArchiveCard from "@/components/h3m-archive-card.vue";
 import H3mPostArticleCard from "@/components/h3m-post-article-card.vue";
 import H3mFooter from "@/components/h3m-footer.vue";
 import H3mBackToTop from "@/components/h3m-back-to-top.vue";
-import { onMounted, ref } from "vue";
-import { getArticleListByTagOrCategory } from "@/api/article";
+import { onMounted, ref, watch } from "vue";
+import { getArticleListByTagOrCategoryOrDate } from "@/api/article";
 import { useUserStore } from "@/store/useUserStore";
 import { ElMessage } from "element-plus";
 import { useRoute } from "vue-router";
@@ -68,20 +68,28 @@ const title = ref("");
 
 onMounted(() => {
   onCurrentPageChanged(1);
+  title.value = "✨" + route.params.tagName + "✨";
 });
 
+watch(
+  () => route.params,
+  () => {
+    // 刷新页面
+    window.location.reload();
+  }
+);
 const onCurrentPageChanged = async (pageNum) => {
-  const res = await getArticleListByTagOrCategory(
+  const res = await getArticleListByTagOrCategoryOrDate(
     user.currentUserInfo.id,
     tagId,
     0,
+    "",
     pageNum,
     pageSize
   );
   if (res.data.code === 1) {
     articleCount.value = res.data.data.total;
     articleList.value = res.data.data.rows;
-    title.value = "✨" + articleList.value[0]?.tagName + "✨";
   } else {
     ElMessage.error("获取文章列表失败");
   }

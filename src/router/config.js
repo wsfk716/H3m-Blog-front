@@ -62,7 +62,7 @@ const routes = [
     component: CategoryList,
   },
   {
-    path: "/category/:id",
+    path: "/category/:id/:categoryName",
     name: "CategoryDetails",
     component: CategoryDetails,
     props: true,
@@ -73,7 +73,7 @@ const routes = [
     component: TagList,
   },
   {
-    path: "/tag/:id",
+    path: "/tag/:id/:tagName",
     name: "TagDetails",
     component: TagDetails,
     props: true,

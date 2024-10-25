@@ -55,6 +55,15 @@
                 :label="item.name"
                 :value="item.id"
               />
+
+              <template #footer>
+                <div @click="handleAddCategory">
+                  <el-button style="width: 100%; height: 100%; border: none">
+                    <el-icon><CirclePlus /></el-icon>
+                    添加分类
+                  </el-button>
+                </div>
+              </template>
             </el-select>
           </el-form-item>
           <!-- 标签 -->
@@ -71,6 +80,14 @@
                 :label="item.name"
                 :value="item.id"
               />
+              <template #footer>
+                <div @click="handleAddTag">
+                  <el-button style="width: 100%; height: 100%; border: none">
+                    <el-icon><CirclePlus /></el-icon>
+                    添加标签
+                  </el-button>
+                </div>
+              </template>
             </el-select>
           </el-form-item>
         </div>
@@ -116,6 +133,8 @@ import { getTagNameList } from "@/api/tag";
 import { useUserStore } from "@/store/useUserStore";
 import { addArticle } from "@/api/article";
 import { useRouter } from "vue-router";
+import { addCategory } from "@/api/category";
+import { addTag } from "@/api/tag";
 const router = useRouter();
 const ruleFormRef = ref(null);
 const ruleForm = ref({
@@ -226,6 +245,57 @@ const onCancelForm = () => {
     router.push("/");
   });
 };
+
+// -------------------添加分类和标签-------------------------
+const handleAddCategory = () => {
+  ElMessageBox.prompt("请输入新的分类名称", "添加分类", {
+    confirmButtonText: "添加",
+    cancelButtonText: "取消",
+    inputPattern: /^[\u4e00-\u9fa5_a-zA-Z0-9]+$/,
+    inputErrorMessage: "分类名称只能包含中文、英文、数字和下划线",
+  })
+    .then(async ({ value }) => {
+      // 提交
+      const res = await addCategory({
+        name: value,
+        createBy: user.currentUserInfo.id,
+        updateBy: user.currentUserInfo.id,
+      });
+      if (res.data.code === 1) {
+        ElMessage.success("添加成功");
+        getCategoryList();
+      } else {
+        ElMessage.error("添加失败", res.data.msg);
+      }
+    })
+    .catch(() => {
+      ElMessage.info("取消添加");
+    });
+};
+const handleAddTag = () => {
+  ElMessageBox.prompt("请输入新的标签名称", "添加标签", {
+    confirmButtonText: "添加",
+    cancelButtonText: "取消",
+    inputPattern: /^[\u4e00-\u9fa5_a-zA-Z0-9]+$/,
+    inputErrorMessage: "标签名称只能包含中文、英文、数字和下划线",
+  })
+    .then(async ({ value }) => {
+      const res = await addTag({
+        name: value,
+        createBy: user.currentUserInfo.id,
+        updateBy: user.currentUserInfo.id,
+      });
+      if (res.data.code === 1) {
+        ElMessage.success("添加成功");
+        getTagList();
+      } else {
+        ElMessage.error("添加失败", res.data.msg);
+      }
+    })
+    .catch(() => {
+      ElMessage.info("取消添加");
+    });
+};
 </script>
 <style lang="scss" scoped>
 .edit-card {
@@ -247,6 +317,7 @@ const onCancelForm = () => {
     display: flex;
     justify-content: space-between;
   }
+
   .submitButton {
     margin-bottom: 20px;
     margin-left: 55px;

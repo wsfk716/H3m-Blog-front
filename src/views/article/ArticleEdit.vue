@@ -250,7 +250,7 @@ const onCancelForm = () => {
       type: "warning",
     }
   ).then(() => {
-    router.push("/");
+    router.push(`/article/${ruleForm.value.id}`);
   });
 };
 </script>

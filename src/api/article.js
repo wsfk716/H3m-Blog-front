@@ -44,19 +44,22 @@ function getPreviousNextArticle(articleId, userId) {
  * @param {BigInteger} userId
  * @param {BigInteger} tagId
  * @param {BigInteger} categoryId
+ * @param {string} date
  * @param {BigInteger} pageNum
  * @param {BigInteger} pageSize
+ *
  * @returns
  */
-function getArticleListByTagOrCategory(
+function getArticleListByTagOrCategoryOrDate(
   userId,
   tagId,
   categoryId,
+  date,
   pageNum,
   pageSize
 ) {
   return axios.get(
-    `/api/article/articleList/${userId}?tagId=${tagId}&categoryId=${categoryId}&pageNum=${pageNum}&pageSize=${pageSize}`
+    `/api/article/articleList/${userId}?tagId=${tagId}&categoryId=${categoryId}&date=${date}&pageNum=${pageNum}&pageSize=${pageSize}`
   );
 }
 /**
@@ -76,12 +79,22 @@ function addArticle(data) {
 function updateArticle(data) {
   return axios.put(`/api/article`, data);
 }
+
+/**
+ * 删除博客
+ * @param {BigInteger} id
+ * @returns
+ */
+function deleteArticle(id) {
+  return axios.delete(`/api/article/${id}`);
+}
 export {
   getArticleCount,
   getArticleList,
   getArticleDetail,
   getPreviousNextArticle,
-  getArticleListByTagOrCategory,
+  getArticleListByTagOrCategoryOrDate,
   addArticle,
   updateArticle,
+  deleteArticle,
 };

@@ -21,7 +21,7 @@
         <el-timeline class="timeline">
           <el-timeline-item
             center
-            :timestamp="`历史文章 - ${articleCount}`"
+            :timestamp="`历史文章 - ${articleCount} `"
             placement="top"
             class="archive-title"
             type="primary"
@@ -43,6 +43,8 @@
               class="main"
               v-for="article in item.articles"
               :key="article.id"
+              @mouseenter="showOptions(article.id)"
+              @mouseleave="hideOptions(article.id)"
             >
               <router-link
                 :to="{ name: 'ArticleDetails', params: { id: article.id } }"
@@ -66,6 +68,16 @@
                 <div class="desc">
                   <div class="date">{{ formatDate(article.createTime) }}</div>
                   <div class="readNumber">{{ article.viewCount }}次围观</div>
+                </div>
+              </div>
+              <!-- 操作：删除、编辑 -->
+              <div class="options" v-if="visibleOptions === article.id">
+                <router-link
+                  :to="{ name: 'ArticleEdit', params: { id: article.id } }"
+                  >编辑</router-link
+                >
+                <div class="handleDelete" @click="handleDelete(article.id)">
+                  删除
                 </div>
               </div>
             </div>
@@ -103,7 +115,7 @@ import H3mArchiveCard from "@/components/h3m-archive-card.vue";
 import H3mFooter from "@/components/h3m-footer.vue";
 import H3mBackToTop from "@/components/h3m-back-to-top.vue";
 import { onMounted, ref } from "vue";
-import { getArticleCount } from "@/api/article";
+import { getArticleCount, deleteArticle } from "@/api/article";
 import { useUserStore } from "@/store/useUserStore";
 import { ElMessage } from "element-plus";
 import { getArchiveList } from "@/api/archive";
@@ -135,6 +147,30 @@ const onCurrentPageChanged = async (pageNum) => {
 const formatDate = (dateString) => {
   const options = { year: "numeric", month: "2-digit", day: "2-digit" };
   return new Date(dateString).toLocaleDateString("zh-CN", options);
+};
+// 处理编辑、删除操作的显示与隐藏
+const visibleOptions = ref(null);
+
+const showOptions = (id) => {
+  visibleOptions.value = id;
+};
+
+const hideOptions = (id) => {
+  if (visibleOptions.value === id) {
+    visibleOptions.value = null;
+  }
+};
+
+// 处理删除操作
+const handleDelete = async (id) => {
+  const res = await deleteArticle(id);
+  if (res.data.code === 1) {
+    ElMessage.success("删除成功");
+    getCount(user.currentUserInfo.id);
+    onCurrentPageChanged(1);
+  } else {
+    ElMessage.error("删除失败");
+  }
 };
 </script>
 <style lang="scss" scoped>
@@ -199,6 +235,28 @@ const formatDate = (dateString) => {
                 font-size: 13px;
                 .date {
                   margin-right: 10px;
+                }
+              }
+            }
+            .options {
+              display: flex;
+              flex-direction: column;
+              // justify-content: center;
+              // align-items: center;
+              a {
+                margin-top: 10px;
+                cursor: pointer;
+                color: var(--text-color);
+                text-decoration: none;
+                &:hover {
+                  color: var(--theme-color);
+                }
+              }
+              .handleDelete {
+                margin-top: 10px;
+                cursor: pointer;
+                &:hover {
+                  color: var(--theme-color);
                 }
               }
             }
