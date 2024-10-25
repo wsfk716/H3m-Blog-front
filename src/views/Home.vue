@@ -57,7 +57,7 @@ import { ElMessage } from "element-plus";
 
 const { user } = useUserStore();
 const articleCount = ref(0);
-const pageSize = 6; // 每页显示的文章数量, 这里我直接固定死了
+const pageSize = 10; // 每页显示的文章数量, 这里我直接固定死了
 const articleList = ref([]);
 onMounted(() => {
   getCount(user.currentUserInfo.id);

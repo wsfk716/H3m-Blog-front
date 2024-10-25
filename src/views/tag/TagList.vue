@@ -90,6 +90,7 @@ const getList = async () => {
       box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
       height: 100%;
       .tag-item {
+        width: 33%;
         padding: 0 8px;
         &:nth-child(odd) a {
           color: #f731a4; /* 第一种颜色 */

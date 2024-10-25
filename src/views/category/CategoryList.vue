@@ -25,7 +25,10 @@
               params: { id: item.id, categoryName: item.name },
             }"
           >
-            <div>{{ item.name }}</div>
+            <div class="category-item-content">
+              <div>{{ item.name }}</div>
+              <div class="desc">{{ item.description }}</div>
+            </div>
           </router-link>
         </div>
       </div>
@@ -86,9 +89,12 @@ const getList = async () => {
     .category-list {
       width: 74%;
       display: flex;
+      flex-direction: column;
       box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
       height: 100%;
+
       .category-item {
+        width: 100%;
         padding: 0 8px;
         &:nth-child(odd) a {
           color: #f731a4; /* 第一种颜色 */
@@ -100,12 +106,23 @@ const getList = async () => {
           display: block;
           text-align: center;
           margin: 20px 0;
-          padding-left: 20px;
           font-size: 20px;
           text-decoration: none;
 
           &:hover {
             color: #409eff;
+          }
+        }
+        .category-item-content {
+          display: flex;
+          justify-content: space-between;
+          padding: 0 20px;
+          .desc {
+            width: 60%;
+            text-align: right;
+            color: #b5a9a9;
+            flex-wrap: wrap;
+            font-size: 14px;
           }
         }
       }
