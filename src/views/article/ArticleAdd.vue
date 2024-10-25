@@ -4,7 +4,7 @@
     <H3mHeader></H3mHeader>
     <!-- 封面 -->
     <H3mCoverOther
-      title="✨ 编辑博客 ✨"
+      title="✨ 新随笔 ✨"
       text="雄关漫道真如铁，而今迈步从头越"
     ></H3mCoverOther>
     <!-- 编辑表单 -->
@@ -90,10 +90,7 @@
 
         <!-- 缩略图 -->
         <el-form-item prop="thumbnail" label="缩略图">
-          <h3m-uploader
-            @file-upload="handleFileUpLoaded"
-            :imgUrl="CurrentThumbnail"
-          ></h3m-uploader>
+          <h3m-uploader @file-upload="handleFileUpLoaded"></h3m-uploader>
         </el-form-item>
       </el-form>
       <!-- 提交按钮 -->
@@ -111,19 +108,17 @@ import H3mHeader from "@/components/h3m-header.vue";
 import H3mCoverOther from "../../components/h3m-cover-other.vue";
 import H3mFooter from "@/components/h3m-footer.vue";
 import H3mUploader from "@/components/h3m-uploader.vue";
-import { onMounted, ref, watch } from "vue";
+import { onMounted, ref } from "vue";
 import { uploadImage } from "@/api/image";
 import { ElMessage, ElMessageBox } from "element-plus";
 import { getCategoryNameList } from "@/api/category";
 import { getTagNameList } from "@/api/tag";
 import { useUserStore } from "@/store/useUserStore";
-import { updateArticle, getArticleDetail } from "@/api/article";
-import { useRouter, useRoute } from "vue-router";
+import { addArticle } from "@/api/article";
+import { useRouter } from "vue-router";
 const router = useRouter();
-const route = useRoute(); // 获取路由参数
 const ruleFormRef = ref(null);
 const ruleForm = ref({
-  id: undefined, // 文章id
   title: "", // 标题
   summary: "", // 摘要
   categoryId: "", // 分类id
@@ -133,31 +128,11 @@ const ruleForm = ref({
   createBy: "", // 创建者
   updateBy: "", // 更新者
 });
-const CurrentThumbnail = ref("");
 const { user } = useUserStore();
 onMounted(() => {
   getCategoryList();
   getTagList();
-  getCurrentArticleDetail();
 });
-
-// ---------------------获取当前文章信息------------------------
-const getCurrentArticleDetail = async () => {
-  const res = await getArticleDetail(route.params.id);
-  ruleForm.value = {
-    id: res.data.data.id,
-    title: res.data.data.title,
-    summary: res.data.data.summary,
-    categoryId: res.data.data.categoryId,
-    content: res.data.data.content,
-    thumbnail: res.data.data.thumbnail,
-    createBy: res.data.data.createBy,
-    updateBy: res.data.data.updateBy,
-  };
-  ruleForm.value.tagIds = res.data.data.tags.map((item) => item.id);
-  CurrentThumbnail.value = res.data.data.thumbnail;
-  console.log(ruleForm.value);
-};
 
 // ---------------------表单验证规则------------------------
 const rules = {
@@ -206,31 +181,29 @@ const getTagList = async () => {
 
 // 提交表单
 const onSubmitForm = () => {
-  // 设置更新者
+  // 设置创建者、更新者
+  ruleForm.value.createBy = user.currentUserInfo.id;
   ruleForm.value.updateBy = user.currentUserInfo.id;
   // 验证并提交表单
   ruleFormRef.value.validate(async (valid) => {
     if (valid) {
       // 上传图片到图床
-      if (imageFile.value) {
-        const res = await uploadImage(imageFile.value);
-        if (res.data.status === true) {
-          const url = res.data.data.links.url;
-          ruleForm.value.thumbnail = url;
-        } else {
-          ElMessage.error("上传失败", res.data.msg);
-          return; // 如果上传失败，停止执行
-        }
+      const res = await uploadImage(imageFile.value);
+      if (res.data.status === true) {
+        const url = res.data.data.links.url;
+        ruleForm.value.thumbnail = url;
+      } else {
+        ElMessage.error("上传失败", res.data.msg);
+        return; // 如果上传失败，停止执行
       }
       // 提交表单
       console.log(ruleForm.value);
-      const updateArticleRes = await updateArticle(ruleForm.value);
-      if (updateArticleRes.data.code === 1) {
-        ElMessage.success("编辑成功！");
-        // 跳转至文章详情页
-        router.push(`/article/${ruleForm.value.id}`);
+      const addArticleRes = await addArticle(ruleForm.value);
+      if (addArticleRes.data.code === 1) {
+        ElMessage.success("发布成功");
+        router.push("/");
       } else {
-        ElMessage.error("编辑失败", updateArticleRes.data.msg);
+        ElMessage.error("发布失败", addArticleRes.data.msg);
         return false;
       }
     } else {

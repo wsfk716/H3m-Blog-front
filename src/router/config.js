@@ -3,6 +3,7 @@ import Login from "@/views/Login.vue";
 import NotFound from "@/views/NotFound.vue";
 import Settings from "@/views/Settings.vue";
 import ArticleDetails from "@/views/article/ArticleDetails.vue";
+import ArticleAdd from "@/views/article/ArticleAdd.vue";
 import ArticleEdit from "@/views/article/ArticleEdit.vue";
 import ArchiveList from "@/views/archive/ArchiveList.vue";
 import ArchiveDetails from "@/views/archive/ArchiveDetails.vue";
@@ -24,7 +25,7 @@ const routes = [
   {
     path: "/article/add",
     name: "ArticleAdd",
-    component: ArticleEdit,
+    component: ArticleAdd,
     meta: {
       needAuthentication: true,
     },

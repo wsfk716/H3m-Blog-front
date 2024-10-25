@@ -907,6 +907,8 @@ const updateCommentContent = async () => {
     /* 为图标添加样式 */
     .title {
       display: flex;
+
+      justify-content: center;
       .icon {
         font-size: 48px; /* 设置图标大小 */
         color: white; /* 默认颜色为白色 */

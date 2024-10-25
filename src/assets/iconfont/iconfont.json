@@ -6,6 +6,27 @@
   "description": "",
   "glyphs": [
     {
+      "icon_id": "1167180",
+      "name": "删除",
+      "font_class": "shanchu",
+      "unicode": "e642",
+      "unicode_decimal": 58946
+    },
+    {
+      "icon_id": "3716185",
+      "name": "正确",
+      "font_class": "zhengque",
+      "unicode": "e615",
+      "unicode_decimal": 58901
+    },
+    {
+      "icon_id": "4777229",
+      "name": "放大",
+      "font_class": "fangda",
+      "unicode": "ec13",
+      "unicode_decimal": 60435
+    },
+    {
       "icon_id": "13063381",
       "name": "课程目录",
       "font_class": "kechengmulu",

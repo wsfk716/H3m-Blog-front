@@ -59,10 +59,29 @@ function getArticleListByTagOrCategory(
     `/api/article/articleList/${userId}?tagId=${tagId}&categoryId=${categoryId}&pageNum=${pageNum}&pageSize=${pageSize}`
   );
 }
+/**
+ * 发布博客
+ * @param {object} data
+ * @returns
+ */
+function addArticle(data) {
+  return axios.post(`/api/article`, data);
+}
+
+/**
+ * 更新博客
+ * @param {object} data
+ * @returns
+ */
+function updateArticle(data) {
+  return axios.put(`/api/article`, data);
+}
 export {
   getArticleCount,
   getArticleList,
   getArticleDetail,
   getPreviousNextArticle,
   getArticleListByTagOrCategory,
+  addArticle,
+  updateArticle,
 };
