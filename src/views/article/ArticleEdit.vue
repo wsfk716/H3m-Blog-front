@@ -5,12 +5,12 @@
     <!-- 封面 -->
     <H3mCoverOther
       title="✨ 编辑博客 ✨"
-      text="雄关漫道真如铁，而今迈步从头越"
+      text="若问世界谁无双 会令昨天明天也闪亮"
     ></H3mCoverOther>
     <!-- 编辑表单 -->
     <div class="edit-card">
       <!-- 标题 -->
-      <h1 class="h3m-blog-title">✨ Kila Kila Blog ✨</h1>
+      <h1 class="h3m-blog-title">✨ H3m Blog ✨</h1>
       <!-- 表单 -->
       <el-form
         ref="ruleFormRef"

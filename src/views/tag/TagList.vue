@@ -5,7 +5,7 @@
     <!-- 封面 -->
     <h3m-cover-other
       title="✨ 标签 ✨"
-      text="雄关漫道真如铁，而今迈步从头越"
+      text="人不能飞于是努力走"
     ></h3m-cover-other>
     <div class="container">
       <!-- 侧边栏 -->

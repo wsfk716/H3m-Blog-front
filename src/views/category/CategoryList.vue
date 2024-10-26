@@ -5,7 +5,7 @@
     <!-- 封面 -->
     <h3m-cover-other
       title="✨ 分类 ✨"
-      text="雄关漫道真如铁，而今迈步从头越"
+      text="天气不似预期 但要走 总要飞"
     ></h3m-cover-other>
     <div class="container">
       <!-- 侧边栏 -->

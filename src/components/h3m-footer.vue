@@ -4,11 +4,11 @@
     <div class="footer-box">
       <!-- 标语 -->
       <div class="footer-text">
-        「天若有情天亦老
+        「开始时捱一些苦
         <svg class="icon" aria-hidden="true">
           <use xlink:href="#icon-aixin"></use>
         </svg>
-        人间正道是沧桑」
+        栽种绝处的花」
       </div>
       <!-- 运行时间 -->
       <div class="blog-run-time">

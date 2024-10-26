@@ -5,7 +5,7 @@
     <!-- 封面 -->
     <h3m-cover-other
       :title="title"
-      text="雄关漫道真如铁，而今迈步从头越"
+      text="黑或白 找不到的绝对 全都是灰"
     ></h3m-cover-other>
     <div class="container">
       <!-- 侧边栏 -->

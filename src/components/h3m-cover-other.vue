@@ -32,9 +32,10 @@ onMounted(() => {
   flex-direction: column;
   justify-content: center;
   align-items: center;
-  height: 400px;
+  height: 500px;
   width: 100vw;
-  background-image: url("@/assets/image/home-cover.png");
+  background-image: url("@/assets/image/other-cover.png");
+  background-repeat: repeat;
   background-size: cover;
   background-position: center;
   position: relative; /* 设置父容器为相对定位 */

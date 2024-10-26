@@ -5,12 +5,12 @@
     <!-- 封面 -->
     <h3m-cover-other
       title="✨ 个人中心 ✨"
-      text="雄关漫道真如铁，而今迈步从头越"
+      text="人群是那么像羊群"
     ></h3m-cover-other>
     <div class="user-info-card">
       <!-- 封面 -->
       <div class="user-cover">
-        <img src="@/assets/image/user-cover.jpg" alt="" />
+        <img src="@/assets/image/user-cover.png" alt="" />
       </div>
 
       <!-- 用户信息 -->

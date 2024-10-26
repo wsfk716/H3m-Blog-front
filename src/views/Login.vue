@@ -6,7 +6,7 @@
       </div>
 
       <div class="right">
-        <h2>✨ Kila Kila Blog ✨</h2>
+        <h2>✨ H3m Blog ✨</h2>
         <div class="welcome">欢迎回来</div>
         <el-form
           :model="loginForm"
@@ -62,7 +62,7 @@
         <img src="../assets/image/login-left.png" alt="register-left" />
       </div>
       <div class="right">
-        <h2>✨ Kila Kila Blog ✨</h2>
+        <h2>✨ H3m Blog ✨</h2>
         <div class="welcome">请填写您的基本信息</div>
         <el-form
           :model="registerForm"

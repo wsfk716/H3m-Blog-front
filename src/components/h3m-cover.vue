@@ -1,8 +1,8 @@
 <template>
   <div class="cover">
-    <div class="title particletext bubbles">✨ Kila Kila Blog ✨</div>
+    <div class="title particletext bubbles">✨ H3m Blog ✨</div>
 
-    <div class="text">雄关漫道真如铁，而今迈步从头越</div>
+    <div class="text">感谢永远有歌把心境道破</div>
     <!-- 一个向下箭头图标，点击后会向下滚动到内容 -->
     <el-icon @click="scrollDown"><ArrowDown /></el-icon>
   </div>
@@ -30,7 +30,7 @@ const scrollDown = () => {
   align-items: center;
   height: 100vh;
   width: 100vw;
-  background-image: url("@/assets/image/home-cover.jpg");
+  background-image: url("@/assets/image/cover.png");
   background-size: cover;
   background-position: center;
   position: relative; /* 设置父容器为相对定位 */

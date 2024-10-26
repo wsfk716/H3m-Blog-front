@@ -1,7 +1,7 @@
 <template>
   <div class="header">
     <div class="left">
-      <router-link to="/">✨ Kila Kila Blog ✨</router-link>
+      <router-link to="/">✨ H3m Blog ✨</router-link>
     </div>
     <div class="right">
       <ul>

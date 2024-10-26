@@ -3,10 +3,7 @@
     <!-- 页头 -->
     <h3m-header></h3m-header>
     <!-- 封面 -->
-    <h3m-cover-other
-      title="✨ 归档 ✨"
-      text="雄关漫道真如铁，而今迈步从头越"
-    ></h3m-cover-other>
+    <h3m-cover-other title="✨ 归档 ✨" text="我们万岁"></h3m-cover-other>
     <div class="container">
       <!-- 侧边栏 -->
       <div class="side-content">

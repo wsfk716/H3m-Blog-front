@@ -5,7 +5,7 @@
     <!-- 封面 -->
     <H3mCoverOther
       title="✨ 新随笔 ✨"
-      text="雄关漫道真如铁，而今迈步从头越"
+      text="你要静候 再静候，就算失收 始终要守"
     ></H3mCoverOther>
     <!-- 编辑表单 -->
     <div class="edit-card">
